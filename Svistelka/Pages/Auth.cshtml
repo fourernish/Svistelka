@@ -1,0 +1,30 @@
+﻿@page
+@model AuthModel
+@{
+	ViewData["Title"] = "Авторизация";
+}
+
+<div class="container text-center">
+
+    <div class="row">
+
+        <h3> Авторизация </h3>
+        <div class="col-md-6 offset-3"> 
+            <form method="post" asp-antiforgery="true">
+                <p>
+                    <label>Логин</label>
+                    <input name="email" type="email" />
+                </p>
+                <p>
+                    <label>Пароль</label>
+                    <input name="password" type="password" />
+                </p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Вход
+                </button>
+            </form>
+            <p>Новый пользователь? <a asp-page="Sign">Регистрация!</a></p>
+        </div>
+    </div>
+
+</div>

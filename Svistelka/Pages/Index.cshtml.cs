@@ -11,7 +11,7 @@ namespace Svistelka.Pages
         private ApplicationContext _context;
         private readonly ILogger<IndexModel> _logger;
 
-        public User? Person;
+        public User? User;
         public string sessionId { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ApplicationContext context)
@@ -30,8 +30,8 @@ namespace Svistelka.Pages
             }
             else
             {
-                Person = await _context.Users.FirstOrDefaultAsync(m => m.Id == int.Parse(sessionId));
-                if(Person == null)
+                User = await _context.Users.FirstOrDefaultAsync(m => m.Id == int.Parse(sessionId));
+                if(User == null)
                 {
                     HttpContext.Session.Remove("SampleSession");
                     return NotFound();

@@ -4,7 +4,16 @@
     ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Добро пожаловать, @Model.Person.Name!</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div row>
+        <aside class="col-md-4">
+
+            <section class="user-info">
+                <img src="/images/user.jpg" width="70" height="70"/>
+                <h1>@Model.User.Name</h1>
+            </section>
+        
+
+        </aside>
+    </div>
 </div>

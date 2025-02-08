@@ -19,6 +19,10 @@
                     <label asp-for="Person.Password">Пароль</label>
                     <input asp-for="Person.Password" name="password" type="password" />
                 </p>
+                @if(!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+                }
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Вход
                 </button>

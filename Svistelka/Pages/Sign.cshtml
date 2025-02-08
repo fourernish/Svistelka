@@ -26,6 +26,12 @@
 					<label>Проверка пароля</label>
 					<input name="passwordconfirmation" type="password" />
 				</p>
+
+				@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+				{
+					<div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+				}
+
 				<button class="btn btn-lg btn-primary btn-block" type="submit">
 					Вход
 				</button>

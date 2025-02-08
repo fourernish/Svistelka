@@ -12,6 +12,7 @@ namespace Svistelka.Pages
         private readonly ILogger<AuthModel> _logger;
 		[BindProperty]
 		public User Person { get; set; } = new();
+        public string ErrorMessage { get; set; }
         public AuthModel(ApplicationContext db, ILogger<AuthModel> logger)
         {
 			_context = db;
@@ -20,7 +21,6 @@ namespace Svistelka.Pages
         public async Task<IActionResult> OnPostAsync()
         {
 			var user = await _context.Users.Where(u => u.Email == Person.Email && u.Password == Person.Password).ToListAsync();
-            _logger.LogInformation($"Количество найденных пользователей:  {user.Count}");
 
             if (user.Count > 0)
 			{
@@ -29,6 +29,7 @@ namespace Svistelka.Pages
 			}
             else
             {
+                ErrorMessage = "Неверный логин или пароль";
                 return Page();
             }
 		}

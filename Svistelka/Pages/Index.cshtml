@@ -1,19 +1,49 @@
 ﻿@page
+@using Svistelka.Models
 @model IndexModel
 @{
     ViewData["Title"] = "Главная";
 }
 
 <div>
-    <div row>
+    <div class="row"">
         <aside class="col-md-4">
 
             <section class="user-info">
                 <img src="/images/user.jpg" width="70" height="70"/>
                 <h1>@Model.User.Name</h1>
+                <span>Cообщения @Model.User.Microposts.Count()</span>
             </section>
         
-
+            <section class="micropost_form">
+                <form action="" method="POST" class="form-signin" role="form" enctype="multipart/form-data">
+                    <div class="field">
+                        <textarea rows="4" cols="50" type="text" name="message" required autofocus></textarea>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Post</button>
+                </form>
+            </section>
         </aside>
+
+        <div class="col-md-8">
+            <h3>
+                Лента сообщений
+            </h3>
+            <ol class="microposts">
+                @foreach (var post in Model.Messages.OrderByDescending(p => p.CreatedAt))
+                {
+                    <li id="micropost-@post.Id">
+
+                        <img src="/images/user.jpg" class="gravatar" width="70" height="70" />
+                        <span class="user">@post.User.Name</span>
+                        <span class="content">@post.Content</span>
+                        <span class="timestamp">
+                            Написал @Time.HumanView(post.CreatedAt).
+                            <a asp-page="Index" asp-page-handler="Delete" asp-route-id="@post.Id" class="btn btn-primary btn-sm">Удалить</a>
+                        </span>
+                    </li>
+                }
+            </ol>
+        </div>
     </div>
 </div>

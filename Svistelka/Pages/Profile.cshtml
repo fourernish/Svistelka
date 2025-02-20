@@ -1,0 +1,70 @@
+﻿@page "{id:int}"
+@using Svistelka.Models;
+@model Svistelka.Pages.ProfileModel
+@{
+    ViewData["Title"] = $"Профиль: {Model.ProfileUser.Name}";
+}
+
+<div class="row">
+
+    <aside class="col-md-4">
+        <section class="user_info">
+            <h1>
+                <img src="/images/user.jpg" class="gravatar" width="100" height="100" />
+                @Model.ProfileUser.Name
+            </h1>
+        </section>
+
+        <section class="stats">
+            <a class="btn btn-primary" asp-page="Followers" asp-route-id=@Model.ProfileUser.Id>Подписчики</a>
+            <a class="btn btn-primary" asp-page="Followeds" asp-route-id=@Model.ProfileUser.Id>Подписки</a>
+        </section>
+    </aside>
+
+    <div class="col-md-8">
+
+        <div id="follow_form">
+
+            <form method="post" asp-route-id="@Model.ProfileUser.Id" asp-page-handler="Follow">
+                <input type="hidden" name="id" value="@Model.ProfileUser.Id" />
+                @{
+                    if (Model.CurrentUser.Id != Model.ProfileUser.Id)
+                    {
+                        if (!Model.IsFollow)
+                        {
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Подписаться</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-lg btn-danger btn-block" type="submit">Отписаться</button>
+                        }
+                    }
+
+                }
+
+
+            </form>
+        </div>
+
+        <h3>
+            Cообщения @Model.ProfileUser.Microposts.Count()
+        </h3>
+        <ol class="microposts">
+            @foreach (var post in Model.ProfileUser.Microposts)
+            {
+
+                <li id="micropost-@post.Id">
+
+                    <img src="/images/user.jpg" class="gravatar" width="70" height="70" />
+                    <span class="user">@post.UserId</span>
+                    <span class="content">@post.Content</span>
+                    <span class="timestamp">
+                        Написал @Time.HumanView(post.CreatedAt).
+                    </span>
+                </li>
+
+            }
+        </ol>
+    </div>
+
+</div>
